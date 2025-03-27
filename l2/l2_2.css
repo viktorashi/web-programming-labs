@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0a0808;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.box {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(98, 29, 29);
+    transition: transform 1s ease-in-out;
+}
+
+.box:nth-child(2) {
+    background-color: rgb(180, 196, 172);
+}
+
+.box:nth-child(3) {
+    background-color: green;
+}
+
+.box:nth-child(4) {
+    background-color: rgb(206, 206, 40);
+}
+
+.container:hover .box:nth-child(1) {
+    transform: translate(-50vw, -50vh);
+}
+
+.container:hover .box:nth-child(2) {
+    transform: translate(50vw, -50vh);
+}
+
+.container:hover .box:nth-child(3) {
+    transform: translate(-50vw, 50vh);
+}
+
+.container:hover .box:nth-child(4) {
+    transform: translate(50vw, 50vh);
+}
