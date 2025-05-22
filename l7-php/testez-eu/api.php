@@ -7,7 +7,7 @@ $action = $_GET['action'] ?? '';
 $data = json_decode(file_get_contents('php://input'), true);
 
 // lmap
-define('ADMIN_PASSWORD', 'admin123');
+define('ADMIN_PASSWORD', 'smeker123');
 
 function is_admin()
 {
