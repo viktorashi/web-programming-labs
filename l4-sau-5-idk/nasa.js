@@ -38,6 +38,13 @@ const moveItem = (sourceId, targetId) => {
   let target = document.getElementById(targetId);
   let selectedOption = source.options[source.selectedIndex];
 
+  console.log("de unde copiezi");
+  console.log(source);
+  console.log("catre unde copiezi");
+  console.log(target);
+
+  console.log("selectedd option");
+  console.log(selectedOption);
   if (selectedOption) {
     target.add(selectedOption);
   }

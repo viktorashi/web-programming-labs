@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guest Book</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Guest Book</h1>
+
+    <!-- Login form (Admin only) -->
+    <form id="login-form">
+        <input type="password" name="admin_pass" placeholder="Admin password">
+        <button type="submit">Login as Admin</button>
+    </form>
+
+    <!-- Logout button (Admin only) -->
+    <form id="logout-form" style="display:none">
+        <button type="submit">Logout</button>
+    </form>
+
+    <!-- Filter form (Admin only) -->
+    <form id="filter-form" style="display:none">
+        <input type="text" name="author_email" placeholder="Filter by Author Email">
+        <input type="text" name="title" placeholder="Filter by Title">
+        <button type="submit">Filter</button>
+    </form>
+
+    <form id="entry-form">
+        <input type="email" name="author_email" placeholder="Your email" required>
+        <input type="text" name="title" placeholder="Title" required>
+        <textarea name="comment" placeholder="Comment" required></textarea>
+        <button type="submit">Add Entry</button>
+    </form>
+
+    <div id="entries"></div>
+    <div class="controls">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
