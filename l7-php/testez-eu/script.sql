@@ -1,0 +1,10 @@
+CREATE DATABASE guestbook;
+USE guestbook;
+
+CREATE TABLE entries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    author_email VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    comment TEXT NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -7,14 +7,17 @@ $action = $_GET['action'] ?? '';
 $data = json_decode(file_get_contents('php://input'), true);
 
 // lmap
-define('ADMIN_PASSWORD', 'admin123'); 
+define('ADMIN_PASSWORD', 'admin123');
 
-function is_admin() {
+function is_admin()
+{
     return isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true;
 }
 
 switch ($action) {
     case 'login':
+        error_log("dam loginn");
+        error_log("password: " . ($data['password'] ?? ''));
         if (($data['password'] ?? '') === ADMIN_PASSWORD) {
             $_SESSION['is_admin'] = true;
             echo json_encode(['success' => true]);
@@ -24,11 +27,14 @@ switch ($action) {
         break;
 
     case 'logout':
+        error_log("dam logoutt");
         session_destroy();
         echo json_encode(['success' => true]);
         break;
 
     case 'list':
+        error_log("dam list");
+        error_log("data: " . json_encode($data));
         $offset = intval($data['offset'] ?? 0);
         $filters = $data['filters'] ?? [];
 
@@ -51,6 +57,8 @@ switch ($action) {
         break;
 
     case 'insert':
+        error_log("dam insert");
+        error_log("data: " . json_encode($data));
         $stmt = $pdo->prepare("INSERT INTO entries (author_email, title, comment) VALUES (?, ?, ?)");
         $stmt->execute([
             filter_var($data['author_email'], FILTER_VALIDATE_EMAIL),
@@ -61,6 +69,8 @@ switch ($action) {
         break;
 
     case 'update':
+        error_log("dam update");
+        error_log("data: " . json_encode($data));
         if (!is_admin()) {
             http_response_code(403);
             echo json_encode(['error' => 'Unauthorized']);
@@ -76,6 +86,8 @@ switch ($action) {
         break;
 
     case 'delete':
+        error_log("dam delete");
+        error_log("data: " . json_encode($data));
         if (!is_admin()) {
             http_response_code(403);
             echo json_encode(['error' => 'Unauthorized']);
@@ -87,6 +99,7 @@ switch ($action) {
         break;
 
     default:
+        error_log("Nu-i buna ba actiunea asta:");
+        error_log($action);
         echo json_encode(['error' => 'Invalid action']);
 }
-?>
