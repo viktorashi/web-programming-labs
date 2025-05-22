@@ -44,6 +44,7 @@ switch (true) {
         $where = [];
         $params = [];
 
+        // TODO n-o sa mearga ambele in acelasi timp prolly
         if (!empty($filters['author_email'])) {
             $where[] = 'author_email LIKE ?';
             $params[] = '%' . $filters['author_email'] . '%';
@@ -54,6 +55,8 @@ switch (true) {
         }
 
         $whereClause = $where ? ('WHERE ' . implode(' AND ', $where)) : '';
+
+
         $stmt = $pdo->prepare("SELECT * FROM entries $whereClause ORDER BY date DESC LIMIT 4 OFFSET $offset");
         $stmt->execute($params);
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
