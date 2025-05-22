@@ -3,10 +3,12 @@ session_start();
 header('Content-Type: application/json');
 require 'db.php';
 
+$method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? '';
+
 $data = json_decode(file_get_contents('php://input'), true);
 
-// lmap
+// lmaooo
 define('ADMIN_PASSWORD', 'smeker123');
 
 function is_admin()
@@ -14,8 +16,8 @@ function is_admin()
     return isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true;
 }
 
-switch ($action) {
-    case 'login':
+switch (true) {
+    case $action === 'login' && $method === 'POST':
         error_log("dam loginn");
         error_log("password: " . ($data['password'] ?? ''));
         if (($data['password'] ?? '') === ADMIN_PASSWORD) {
@@ -26,15 +28,16 @@ switch ($action) {
         }
         break;
 
-    case 'logout':
+    case $action === 'logout' && $method === 'POST':
         error_log("dam logoutt");
         session_destroy();
         echo json_encode(['success' => true]);
         break;
 
-    case 'list':
+    case $action === 'list' && $method === 'POST':
         error_log("dam list");
         error_log("data: " . json_encode($data));
+
         $offset = intval($data['offset'] ?? 0);
         $filters = $data['filters'] ?? [];
 
@@ -56,9 +59,10 @@ switch ($action) {
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         break;
 
-    case 'insert':
+    case $action === 'insert' && $method === 'POST':
         error_log("dam insert");
         error_log("data: " . json_encode($data));
+
         $stmt = $pdo->prepare("INSERT INTO entries (author_email, title, comment) VALUES (?, ?, ?)");
         $stmt->execute([
             filter_var($data['author_email'], FILTER_VALIDATE_EMAIL),
@@ -68,9 +72,10 @@ switch ($action) {
         echo json_encode(['success' => true]);
         break;
 
-    case 'update':
+    case $action === 'update' && $method === 'PUT':
         error_log("dam update");
         error_log("data: " . json_encode($data));
+
         if (!is_admin()) {
             http_response_code(403);
             echo json_encode(['error' => 'Unauthorized']);
@@ -85,9 +90,11 @@ switch ($action) {
         echo json_encode(['success' => true]);
         break;
 
-    case 'delete':
+    case $action === 'delete' && $method === 'DELETE':
         error_log("dam delete");
         error_log("data: " . json_encode($data));
+
+
         if (!is_admin()) {
             http_response_code(403);
             echo json_encode(['error' => 'Unauthorized']);
@@ -101,5 +108,7 @@ switch ($action) {
     default:
         error_log("Nu-i buna ba actiunea asta:");
         error_log($action);
-        echo json_encode(['error' => 'Invalid action']);
+
+        http_response_code(405);
+        echo json_encode(['error' => 'nuj ce-ai incercat sa faci acl da nu recunosc actiunea: ' . $action . ' cu metoda / verbu : ' . $method]);
 }
