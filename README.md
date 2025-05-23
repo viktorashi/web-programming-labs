@@ -171,3 +171,5 @@ htpasswd -c /opt/homebrew/etc/httpd/.htpasswd myuser
 ```
 
 da ciuciu ca asta imi face numa sa ceara parola cand intru eu pe aplciatie gen lol nu la login doar la admin
+
+vesi ca nu mai e parola acm daca incerci iara cand o sa vrei sa-l deschizi pt nostalgie peste 10 ani
