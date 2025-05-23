@@ -2,6 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 require 'db.php';
+require 'env.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? '';
@@ -9,7 +10,14 @@ $action = $_GET['action'] ?? '';
 $data = json_decode(file_get_contents('php://input'), true);
 
 // lmaooo
-define('ADMIN_PASSWORD', 'smeker123');
+// define('ADMIN_PASSWORD', 'smeker123');
+// $dotenv = Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
+
+loadEnv();
+$ADMIN_PASSWORD = getenv("ADMIN_PASSWORD");
+error_log("admin pass: " . $ADMIN_PASSWORD);
+
 
 function is_admin()
 {
@@ -19,8 +27,13 @@ function is_admin()
 switch (true) {
     case $action === 'login' && $method === 'POST':
         error_log("dam loginn");
-        error_log("password: " . ($data['password'] ?? ''));
-        if (($data['password'] ?? '') === ADMIN_PASSWORD) {
+        error_log("No da oareee o fi bun ? :");
+        error_log("data: " . json_encode($data));
+        // error_log(
+        //     "password corect: " . $data['password'] . " == " . $ADMIN_PASSWORD . "?"
+        // );
+
+        if (($data['password'] ?? '') === $ADMIN_PASSWORD) {
             $_SESSION['is_admin'] = true;
             echo json_encode(['success' => true]);
         } else {
