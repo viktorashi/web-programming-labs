@@ -56,10 +56,28 @@ switch (true) {
 
         $whereClause = $where ? ('WHERE ' . implode(' AND ', $where)) : '';
 
+<<<<<<< HEAD
+=======
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM entries $whereClause");
+        $stmt->execute($params);
+        $no_entries = $stmt->fetchColumn();
+
+        if ($offset >= $no_entries) {
+            http_response_code(400);
+            echo json_encode(['message' => 'No more entries']);
+            exit;
+        }
+>>>>>>> limite-pagination
 
         $stmt = $pdo->prepare("SELECT * FROM entries $whereClause ORDER BY date DESC LIMIT 4 OFFSET $offset");
         $stmt->execute($params);
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        $entries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode([
+            'entries' => $entries,
+            'total' => $no_entries
+        ]);
+
         break;
 
     case $action === 'insert' && $method === 'POST':
