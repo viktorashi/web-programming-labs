@@ -45,15 +45,9 @@ function fetchEntries () {
     })
 }
 
-<<<<<<< HEAD
-function editEntry(id, title, comment) {
-  const newTitle = prompt("Ce titlu vrei sa-i pui vere?", title);
-  const newComment = prompt("Si commentu?", comment);
-=======
 function editEntry (id, title, comment) {
-  const newTitle = prompt('Edit Title', title)
-  const newComment = prompt('Edit Comment', comment)
->>>>>>> limite-pagination
+  const newTitle = prompt('Ce titlu vrei sa-i pui vere?', title)
+  const newComment = prompt('Si commentu?', comment)
   if (newTitle && newComment) {
     fetch('api.php?action=update', {
       method: 'PUT',
@@ -95,21 +89,6 @@ document.getElementById('login-form').addEventListener('submit', e => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password: pass })
   })
-<<<<<<< HEAD
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      isAdmin = true;
-      document.getElementById('filter-form').style.display = 'block';
-      document.getElementById('logout-form').style.display = 'block';
-      document.getElementById('login-form').style.display = 'none';
-      fetchEntries();
-    } else {
-      alert("AAA te-am prins nu stii parola");
-    }
-  });
-});
-=======
     .then(res => res.json())
     .then(data => {
       if (data.success) {
@@ -119,11 +98,10 @@ document.getElementById('login-form').addEventListener('submit', e => {
         document.getElementById('login-form').style.display = 'none'
         fetchEntries()
       } else {
-        alert('Wrong password.')
+        alert('AAA te-am prins nu stii parola')
       }
     })
 })
->>>>>>> limite-pagination
 
 document.getElementById('logout-form').addEventListener('submit', e => {
   e.preventDefault()
