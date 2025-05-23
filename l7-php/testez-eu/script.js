@@ -35,8 +35,8 @@ function fetchEntries() {
 }
 
 function editEntry(id, title, comment) {
-  const newTitle = prompt("Edit Title", title);
-  const newComment = prompt("Edit Comment", comment);
+  const newTitle = prompt("Ce titlu vrei sa-i pui vere?", title);
+  const newComment = prompt("Si commentu?", comment);
   if (newTitle && newComment) {
     fetch('api.php?action=update', {
       method: 'PUT',
@@ -87,7 +87,7 @@ document.getElementById('login-form').addEventListener('submit', e => {
       document.getElementById('login-form').style.display = 'none';
       fetchEntries();
     } else {
-      alert("Wrong password.");
+      alert("AAA te-am prins nu stii parola");
     }
   });
 });
