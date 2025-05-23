@@ -161,3 +161,13 @@ CREATE TABLE entries (
 ```
 
 si in rest e totu in cod la `/l7-php` lmaoo like
+
+<br>
+
+facut parola cu
+
+```bash
+htpasswd -c /opt/homebrew/etc/httpd/.htpasswd myuser
+```
+
+da ciuciu ca asta imi face numa sa ceara parola cand intru eu pe aplciatie gen lol nu la login doar la admin
